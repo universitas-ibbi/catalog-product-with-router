@@ -1,14 +1,18 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import products from "./data/products.json";
 
 export default function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const product = products.find((product) => product.id === parseInt(id));
 
   return (
     <>
+      <button onClick={() => navigate(-1)} className="btn btn-primary mb-3">
+        Back to home
+      </button>
       <div className="row">
         <div className="col-md-4">
           <img src={product.thumbnail} className="w-100" />
