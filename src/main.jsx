@@ -6,26 +6,29 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Product from "./Product.jsx";
 import ProductDetail from "./ProductDetail.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      {
-        path: "/",
-        element: <Product />,
-      },
-      {
-        path: "/product/:id",
-        element: <ProductDetail />,
-      },
-      {
-        path: "/category/:category",
-        element: <Product />,
-      },
-    ],
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        {
+          path: "/",
+          element: <Product />,
+        },
+        {
+          path: "/product/:id",
+          element: <ProductDetail />,
+        },
+        {
+          path: "/category/:category",
+          element: <Product />,
+        },
+      ],
+    },
+  ],
+  { basename: import.meta.env.DEV ? "/" : "/catalog-product-with-router/" }
+);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
