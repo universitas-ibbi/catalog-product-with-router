@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // import products from "./data/products.json";
 
@@ -8,18 +8,24 @@ export default function Product() {
   const [cari, setCari] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
+  const { category } = useParams();
+
   function inputCari(event) {
     setCari(event.target.value);
   }
 
   useEffect(() => {
-    fetch("https://dummyjson.com/products")
+    fetch(
+      category
+        ? `https://dummyjson.com/products/category/${category}`
+        : "https://dummyjson.com/products"
+    )
       .then((response) => response.json())
       .then((data) => {
         setProducts(data.products);
         setFilteredProducts(data.products);
       });
-  }, []);
+  }, [category]);
 
   useEffect(() => {
     const filteredProducts = products.filter((product) =>
@@ -55,7 +61,7 @@ export default function Product() {
               <div className="card-footer">
                 <div className="d-grid">
                   <Link
-                    to={`product/${product.id}`}
+                    to={`/product/${product.id}`}
                     className="btn btn-primary"
                   >
                     Product Detail
